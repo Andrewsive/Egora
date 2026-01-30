@@ -27,8 +27,9 @@ class InsightsManager {
         try {
             this.insights = await window.storageManager.getInsights();
 
-            // If no insights, create demo data
-            if (this.insights.length === 0) {
+            // If no insights, create demo data (only on first load)
+            const hasInteracted = window.storageManager.getLocal('insights_interacted', false);
+            if (this.insights.length === 0 && !hasInteracted) {
                 await this.createDemoData();
                 this.insights = await window.storageManager.getInsights();
             }
@@ -182,7 +183,17 @@ class InsightsManager {
     // Accept insight and apply suggestion
     async acceptInsight(id) {
         const insight = this.insights.find(i => i.id === id);
-        if (!insight) return;
+        if (!insight) {
+            console.error('Insight not found:', id);
+            return;
+        }
+
+        // Validate insight structure
+        if (!insight.suggestedAction) {
+            console.error('Invalid insight: missing suggestedAction', insight);
+            window.showToast('洞察数据异常，请刷新页面重试');
+            return;
+        }
 
         try {
             const action = insight.suggestedAction;
@@ -214,11 +225,27 @@ class InsightsManager {
                     await window.remindersManager.loadReminders();
                     window.remindersManager.render();
                     window.showToast('✅ 已更新提醒');
+                } else {
+                    console.warn('Reminder not found, creating new one instead');
+                    // If reminder doesn't exist, create a new one
+                    const newReminder = {
+                        id: 'reminder_' + Date.now(),
+                        title: insight.title,
+                        context: action.newContext,
+                        priority: 'medium',
+                        enabled: true,
+                        createdAt: Date.now(),
+                        lastTriggered: null
+                    };
+                    await window.storageManager.addReminder(newReminder);
+                    await window.remindersManager.loadReminders();
+                    window.remindersManager.render();
+                    window.showToast('✅ 已创建新提醒');
                 }
             }
 
-            // Remove the insight
-            await this.dismissInsight(id);
+            // Remove the insight (silent mode - no toast)
+            await this.dismissInsight(id, true);
 
             // Sync to server
             window.wsManager.send({
@@ -233,13 +260,20 @@ class InsightsManager {
     }
 
     // Dismiss insight
-    async dismissInsight(id) {
+    async dismissInsight(id, silent = false) {
         try {
+            // Mark that user has interacted with insights
+            window.storageManager.setLocal('insights_interacted', true);
+
             await window.storageManager.deleteInsight(id);
             await this.loadInsights();
             this.render();
             this.updateBadge();
-            window.showToast('已忽略建议');
+
+            // Only show toast if not in silent mode
+            if (!silent) {
+                window.showToast('已忽略建议');
+            }
 
             // Sync to server
             window.wsManager.send({
