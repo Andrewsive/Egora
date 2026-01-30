@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="情境驱动提醒系统 - 基于第一人称视角AI的智能提醒">
+    <meta name="theme-color" content="#0f172a">
+    <title>情境提醒 · Context Reminder</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- App Container -->
+    <div id="app" class="app-container">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="title-icon">🧠</span>
+                    <span class="title-text">情境提醒</span>
+                </h1>
+                <button class="header-btn" id="settingsBtn" aria-label="设置">
+                    ⚙️
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Views -->
+        <main class="main-content">
+            
+            <!-- Timeline View -->
+            <section id="timelineView" class="view-container active">
+                <div class="view-header">
+                    <h2 class="view-title">时间线</h2>
+                    <button class="icon-btn" id="refreshTimelineBtn" aria-label="刷新">🔄</button>
+                </div>
+                <div id="timelineContent" class="timeline-content">
+                    <!-- Timeline events will be rendered here -->
+                    <div class="loading-placeholder">
+                        <div class="spinner"></div>
+                        <p>加载中...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reminders View -->
+            <section id="remindersView" class="view-container">
+                <div class="view-header">
+                    <h2 class="view-title">我的提醒</h2>
+                    <button class="icon-btn primary" id="addReminderBtn" aria-label="添加提醒">➕</button>
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="searchReminders" placeholder="🔍 搜索提醒..." class="search-input">
+                </div>
+                <div id="remindersContent" class="reminders-content">
+                    <!-- Reminder cards will be rendered here -->
+                </div>
+            </section>
+
+            <!-- Insights View -->
+            <section id="insightsView" class="view-container">
+                <div class="view-header">
+                    <h2 class="view-title">AI洞察</h2>
+                    <span class="badge" id="insightsBadge">0</span>
+                </div>
+                <div id="insightsContent" class="insights-content">
+                    <!-- AI insights will be rendered here -->
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-view="timeline" aria-label="时间线">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">时间线</span>
+            </button>
+            <button class="nav-btn" data-view="reminders" aria-label="提醒">
+                <span class="nav-icon">🔔</span>
+                <span class="nav-label">提醒</span>
+            </button>
+            <button class="nav-btn" data-view="insights" aria-label="洞察">
+                <span class="nav-icon">💡</span>
+                <span class="nav-label">洞察</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <!-- Modal: Add/Edit Reminder -->
+    <div id="reminderModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">创建提醒</h3>
+                <button class="close-btn" id="closeModalBtn">✕</button>
+            </div>
+            <div class="modal-body">
+                <form id="reminderForm">
+                    <div class="form-group">
+                        <label for="reminderTitle">提醒我…</label>
+                        <input type="text" id="reminderTitle" class="form-input" placeholder="例如：买牛奶" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reminderContext">当我…</label>
+                        <textarea id="reminderContext" class="form-input" rows="3" placeholder="例如：在超市的时候" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="reminderPriority">优先级</label>
+                        <select id="reminderPriority" class="form-input">
+                            <option value="low">低</option>
+                            <option value="medium" selected>中</option>
+                            <option value="high">高</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelModalBtn">取消</button>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Event Details -->
+    <div id="eventModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">事件详情</h3>
+                <button class="close-btn" id="closeEventModalBtn">✕</button>
+            </div>
+            <div class="modal-body" id="eventModalBody">
+                <!-- Event details will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Permission Prompt -->
+    <div id="notificationPrompt" class="notification-prompt hidden">
+        <div class="prompt-content">
+            <div class="prompt-icon">🔔</div>
+            <h3>启用通知</h3>
+            <p>允许应用发送通知，以便及时提醒您</p>
+            <div class="prompt-actions">
+                <button class="btn btn-secondary" id="skipNotificationBtn">稍后</button>
+                <button class="btn btn-primary" id="enableNotificationBtn">启用</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- Connection Status Indicator -->
+    <div id="connectionStatus" class="connection-status">
+        <span class="status-dot"></span>
+        <span class="status-text">连接中...</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="modules/storage.js"></script>
+    <script src="modules/websocket.js"></script>
+    <script src="modules/notifications.js"></script>
+    <script src="modules/timeline.js"></script>
+    <script src="modules/reminders.js"></script>
+    <script src="modules/insights.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
