@@ -27,6 +27,10 @@ class ContextReminderApp {
             this.setupNavigation();
             console.log('✅ Navigation setup complete');
 
+            // Setup global utilities (must be before other setups that use showToast)
+            this.setupUtilities();
+            console.log('✅ Utilities setup complete');
+
             // Setup WebSocket event handlers
             this.setupWebSocketHandlers();
             console.log('✅ WebSocket handlers registered');
@@ -38,10 +42,6 @@ class ContextReminderApp {
             // Setup notification permission
             this.setupNotifications();
             console.log('✅ Notification setup complete');
-
-            // Setup global utilities
-            this.setupUtilities();
-            console.log('✅ Utilities setup complete');
 
             // Setup modal event listeners
             this.setupModals();
@@ -171,6 +171,8 @@ class ContextReminderApp {
 
     // Setup notifications
     async setupNotifications() {
+        console.log('🔔 Setting up notifications...');
+
         // Check if notifications are supported
         if (!window.notificationManager.isSupported()) {
             console.warn('Notifications not supported in this browser');
@@ -186,28 +188,48 @@ class ContextReminderApp {
         }
 
         // Setup permission prompt buttons
-        document.getElementById('enableNotificationBtn')?.addEventListener('click', async () => {
-            const granted = await window.notificationManager.requestPermission();
-            window.notificationManager.hidePermissionPrompt();
+        const enableBtn = document.getElementById('enableNotificationBtn');
+        const skipBtn = document.getElementById('skipNotificationBtn');
 
-            if (granted) {
-                window.showToast('✅ 通知已启用');
-                // Show a test notification
-                setTimeout(() => {
-                    window.notificationManager.show('通知已启用', {
-                        body: '您将及时收到情境提醒',
-                        requireInteraction: false
-                    });
-                }, 500);
-            } else {
-                window.showToast('⚠️ 通知权限被拒绝');
-            }
-        });
+        console.log('🔍 Enable button found:', enableBtn);
+        console.log('🔍 Skip button found:', skipBtn);
 
-        document.getElementById('skipNotificationBtn')?.addEventListener('click', () => {
-            window.notificationManager.hidePermissionPrompt();
-            window.showToast('您可以稍后在设置中启用通知');
-        });
+        if (enableBtn) {
+            console.log('✅ Adding click listener to enable button');
+            enableBtn.addEventListener('click', async () => {
+                console.log('🖱️ Enable button clicked!');
+                const granted = await window.notificationManager.requestPermission();
+                console.log('Permission result:', granted);
+
+                window.notificationManager.hidePermissionPrompt();
+
+                if (granted) {
+                    window.showToast('✅ 通知已启用');
+                    // Show a test notification
+                    setTimeout(() => {
+                        window.notificationManager.show('通知已启用', {
+                            body: '您将及时收到情境提醒',
+                            requireInteraction: false
+                        });
+                    }, 500);
+                } else {
+                    window.showToast('⚠️ 通知权限被拒绝');
+                }
+            });
+        } else {
+            console.error('❌ Enable button not found!');
+        }
+
+        if (skipBtn) {
+            console.log('✅ Adding click listener to skip button');
+            skipBtn.addEventListener('click', () => {
+                console.log('🖱️ Skip button clicked!');
+                window.notificationManager.hidePermissionPrompt();
+                window.showToast('您可以稍后在设置中启用通知');
+            });
+        } else {
+            console.error('❌ Skip button not found!');
+        }
     }
 
     // Setup modal event listeners

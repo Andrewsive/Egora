@@ -160,20 +160,10 @@ class NotificationManager {
 
     // Get notification icon as data URL
     getIconDataUrl() {
-        // Create a simple SVG icon
-        const svg = `
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                <defs>
-                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <circle cx="50" cy="50" r="45" fill="url(#grad)"/>
-                <text x="50" y="70" font-size="60" text-anchor="middle" fill="white">🧠</text>
-            </svg>
-        `;
-        return 'data:image/svg+xml;base64,' + btoa(svg);
+        // Use URI encoding instead of btoa to avoid character encoding issues
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#6366f1;stop-opacity:1"/><stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1"/></linearGradient></defs><circle cx="50" cy="50" r="45" fill="url(#grad)"/><circle cx="50" cy="35" r="8" fill="white"/><path d="M 50 45 L 50 70" stroke="white" stroke-width="6" stroke-linecap="round"/></svg>`;
+        // Use URI encoding instead of base64 to avoid btoa encoding issues
+        return 'data:image/svg+xml,' + encodeURIComponent(svg);
     }
 
     // Check permission status
