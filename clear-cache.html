@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>清除缓存工具</title>
+    <title>Clear Cache Tool</title>
     <style>
         body {
             font-family: 'Microsoft YaHei', sans-serif;
@@ -75,23 +75,23 @@
 
 <body>
     <div class="container">
-        <h1>🧹 情境提醒 - 缓存清除工具</h1>
-        <p>如果应用功能异常，请使用此工具清除所有缓存</p>
+        <h1>🧹 Context Reminder - Cache Clearing Tool</h1>
+        <p>If the app is malfunctioning, use this tool to clear all cache</p>
 
-        <button class="btn" onclick="clearAllCache()">清除所有缓存</button>
-        <button class="btn" onclick="goToApp()">返回应用</button>
+        <button class="btn" onclick="clearAllCache()">Clear All Cache</button>
+        <button class="btn" onclick="goToApp()">Back to App</button>
 
         <div id="status" class="status"></div>
 
         <div style="margin-top: 2rem; text-align: left;">
-            <h3>将要清除的内容：</h3>
+            <h3>What will be cleared:</h3>
             <ul>
-                <li>Service Worker 缓存</li>
-                <li>IndexedDB 数据库</li>
-                <li>localStorage 数据</li>
-                <li>浏览器缓存</li>
+                <li>Service Worker cache</li>
+                <li>IndexedDB database</li>
+                <li>localStorage data</li>
+                <li>Browser cache</li>
             </ul>
-            <p style="color: #dc3545; font-weight: bold;">⚠️ 注意：这将删除所有本地数据！</p>
+            <p style="color: #dc3545; font-weight: bold;">⚠️ Warning: This will delete all local data!</p>
         </div>
     </div>
 
@@ -99,7 +99,7 @@
         async function clearAllCache() {
             const status = document.getElementById('status');
             status.className = 'status';
-            status.textContent = '正在清除...';
+            status.textContent = 'Clearing...';
             status.style.display = 'block';
 
             try {
@@ -130,7 +130,7 @@
                 sessionStorage.clear();
 
                 status.className = 'status success';
-                status.textContent = '✅ 缓存已清除！3秒后自动跳转到应用...';
+                status.textContent = '✅ Cache cleared! Redirecting to app in 3 seconds...';
 
                 setTimeout(() => {
                     window.location.href = '/index.html';
@@ -138,7 +138,7 @@
 
             } catch (error) {
                 status.className = 'status error';
-                status.textContent = '❌ 清除失败: ' + error.message;
+                status.textContent = '❌ Clear failed: ' + error.message;
             }
         }
 

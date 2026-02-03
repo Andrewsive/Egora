@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>修复AI洞察数据</title>
+    <title>Fix AI Insights Data</title>
     <style>
         body {
             font-family: 'Microsoft YaHei', sans-serif;
@@ -82,16 +82,16 @@
 
 <body>
     <div class="container">
-        <h1>🔧 AI洞察数据修复工具</h1>
+        <h1>🔧 AI Insights Data Repair Tool</h1>
 
         <div class="info">
-            <strong>检测到问题：</strong><br>
-            AI洞察数据损坏（missing suggestedAction）<br><br>
-            此工具将清除损坏的insights数据，并重新生成正确的demo数据。
+            <strong>Issue Detected:</strong><br>
+            AI Insights data corrupted (missing suggestedAction)<br><br>
+            This tool will clear the corrupted insights data and regenerate correct demo data.
         </div>
 
-        <button class="btn" onclick="fixInsights()">修复AI洞察数据</button>
-        <button class="btn btn-secondary" onclick="goToApp()">返回应用</button>
+        <button class="btn" onclick="fixInsights()">Fix AI Insights Data</button>
+        <button class="btn btn-secondary" onclick="goToApp()">Back to App</button>
 
         <div id="status" class="status"></div>
     </div>
@@ -100,7 +100,7 @@
         async function fixInsights() {
             const status = document.getElementById('status');
             status.className = 'status';
-            status.textContent = '正在修复...';
+            status.textContent = 'Fixing...';
             status.style.display = 'block';
 
             try {
@@ -120,7 +120,7 @@
                         localStorage.removeItem('insights_interacted');
 
                         status.className = 'status success';
-                        status.textContent = '✅ AI洞察数据已修复！3秒后自动跳转...';
+                        status.textContent = '✅ AI Insights data fixed! Redirecting in 3 seconds...';
 
                         setTimeout(() => {
                             window.location.href = '/index.html';
@@ -129,18 +129,18 @@
 
                     clearRequest.onerror = () => {
                         status.className = 'status error';
-                        status.textContent = '❌ 修复失败: ' + clearRequest.error;
+                        status.textContent = '❌ Fix failed: ' + clearRequest.error;
                     };
                 };
 
                 request.onerror = () => {
                     status.className = 'status error';
-                    status.textContent = '❌ 无法打开数据库: ' + request.error;
+                    status.textContent = '❌ Unable to open database: ' + request.error;
                 };
 
             } catch (error) {
                 status.className = 'status error';
-                status.textContent = '❌ 修复失败: ' + error.message;
+                status.textContent = '❌ Fix failed: ' + error.message;
             }
         }
 

@@ -1,7 +1,7 @@
 {
-  "name": "情境提醒",
-  "short_name": "情境提醒",
-  "description": "基于第一人称视角AI的情境驱动提醒系统",
+  "name": "Context Reminder",
+  "short_name": "CtxReminder",
+  "description": "Context-driven reminder system based on first-person AI perspective",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f172a",
@@ -21,6 +21,9 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["productivity", "lifestyle"],
+  "categories": [
+    "productivity",
+    "lifestyle"
+  ],
   "screenshots": []
 }
