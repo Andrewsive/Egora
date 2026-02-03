@@ -146,8 +146,8 @@ class RemindersManager {
     // Render single reminder
     renderReminder(reminder) {
         const lastTriggered = reminder.lastTriggered
-            ? `最后触发：${this.formatRelativeTime(reminder.lastTriggered)}`
-            : '从未触发';
+            ? `Last triggered: ${this.formatRelativeTime(reminder.lastTriggered)}`
+            : 'Never triggered';
 
         return `
             <div class="reminder-card" data-reminder-id="${reminder.id}">
@@ -164,8 +164,8 @@ class RemindersManager {
                     <span style="color: var(--color-text-muted); font-size: 0.875rem;">${lastTriggered}</span>
                 </div>
                 <div class="reminder-actions" style="margin-top: 1rem; display: flex; gap: 0.5rem;">
-                    <button class="btn btn-small btn-secondary" data-action="edit">✏️ 编辑</button>
-                    <button class="btn btn-small btn-secondary" data-action="delete" style="color: var(--color-danger);">🗑️ 删除</button>
+                    <button class="btn btn-small btn-secondary" data-action="edit">✏️ Edit</button>
+                    <button class="btn btn-small btn-secondary" data-action="delete" style="color: var(--color-danger);">🗑️ Delete</button>
                 </div>
             </div>
         `;
@@ -362,9 +362,9 @@ class RemindersManager {
         const hours = Math.floor(diff / 3600000);
         const days = Math.floor(diff / 86400000);
 
-        if (minutes < 60) return `${minutes}分钟前`;
-        if (hours < 24) return `${hours}小时前`;
-        return `${days}天前`;
+        if (minutes < 60) return `${minutes} minutes ago`;
+        if (hours < 24) return `${hours} hours ago`;
+        return `${days} days ago`;
     }
 
     // Escape HTML

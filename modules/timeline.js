@@ -131,9 +131,9 @@ class TimelineManager {
     // Render single event
     renderEvent(event) {
         const typeConfig = {
-            'context_detected': { label: '情境检测', class: 'detected', icon: '👁️' },
-            'reminder_triggered': { label: '提醒触发', class: 'triggered', icon: '🔔' },
-            'user_response': { label: '用户响应', class: 'response', icon: '✅' }
+            'context_detected': { label: 'Context Detected', class: 'detected', icon: '👁️' },
+            'reminder_triggered': { label: 'Reminder Triggered', class: 'triggered', icon: '🔔' },
+            'user_response': { label: 'User Response', class: 'response', icon: '✅' }
         };
 
         const config = typeConfig[event.type] || typeConfig['context_detected'];
@@ -156,7 +156,7 @@ class TimelineManager {
                         <div class="confidence-bar">
                             <div class="confidence-fill" style="width: ${event.aiConfidence * 100}%"></div>
                         </div>
-                        <span>置信度 ${(event.aiConfidence * 100).toFixed(0)}%</span>
+                        <span>Confidence ${(event.aiConfidence * 100).toFixed(0)}%</span>
                     ` : ''}
                     ${event.userResponse ? `
                         <span>${this.getUserResponseLabel(event.userResponse)}</span>
@@ -185,21 +185,21 @@ class TimelineManager {
         const weekAgo = today - 604800000;
 
         const groups = {
-            '今天': [],
-            '昨天': [],
-            '本周': [],
-            '更早': []
+            'Today': [],
+            'Yesterday': [],
+            'This Week': [],
+            'Earlier': []
         };
 
         this.events.forEach(event => {
             if (event.timestamp >= today) {
-                groups['今天'].push(event);
+                groups['Today'].push(event);
             } else if (event.timestamp >= yesterday) {
-                groups['昨天'].push(event);
+                groups['Yesterday'].push(event);
             } else if (event.timestamp >= weekAgo) {
-                groups['本周'].push(event);
+                groups['This Week'].push(event);
             } else {
-                groups['更早'].push(event);
+                groups['Earlier'].push(event);
             }
         });
 
@@ -248,9 +248,9 @@ class TimelineManager {
         const body = document.getElementById('eventModalBody');
 
         const typeConfig = {
-            'context_detected': { label: '情境检测', icon: '👁️' },
-            'reminder_triggered': { label: '提醒触发', icon: '🔔' },
-            'user_response': { label: '用户响应', icon: '✅' }
+            'context_detected': { label: 'Context Detected', icon: '👁️' },
+            'reminder_triggered': { label: 'Reminder Triggered', icon: '🔔' },
+            'user_response': { label: 'User Response', icon: '✅' }
         };
 
         const config = typeConfig[event.type] || typeConfig['context_detected'];
@@ -268,19 +268,19 @@ class TimelineManager {
             
             ${event.reminderTitle ? `
                 <div style="margin-bottom: 1rem;">
-                    <div style="font-weight: 600; margin-bottom: 0.5rem;">提醒内容</div>
+                    <div style="font-weight: 600; margin-bottom: 0.5rem;">Reminder Content</div>
                     <div style="color: var(--color-text-secondary);">${event.reminderTitle}</div>
                 </div>
             ` : ''}
             
             <div style="margin-bottom: 1rem;">
-                <div style="font-weight: 600; margin-bottom: 0.5rem;">情境描述</div>
+                <div style="font-weight: 600; margin-bottom: 0.5rem;">Context Description</div>
                 <div style="color: var(--color-text-secondary);">${event.contextDescription}</div>
             </div>
             
             ${event.aiConfidence ? `
                 <div style="margin-bottom: 1rem;">
-                    <div style="font-weight: 600; margin-bottom: 0.5rem;">AI置信度</div>
+                    <div style="font-weight: 600; margin-bottom: 0.5rem;">AI Confidence</div>
                     <div class="confidence-bar" style="margin-bottom: 0.5rem;">
                         <div class="confidence-fill" style="width: ${event.aiConfidence * 100}%"></div>
                     </div>
@@ -292,7 +292,7 @@ class TimelineManager {
             
             ${event.userResponse ? `
                 <div style="margin-bottom: 1rem;">
-                    <div style="font-weight: 600; margin-bottom: 0.5rem;">您的响应</div>
+                    <div style="font-weight: 600; margin-bottom: 0.5rem;">Your Response</div>
                     <div style="color: var(--color-text-secondary);">${this.getUserResponseLabel(event.userResponse)}</div>
                 </div>
             ` : ''}

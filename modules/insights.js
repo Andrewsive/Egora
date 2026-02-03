@@ -149,7 +149,7 @@ class InsightsManager {
                 <p class="insight-description">${this.escapeHtml(insight.description)}</p>
                 <div style="margin-bottom: 1rem;">
                     <div style="font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0.25rem;">
-                        AI置信度
+                        AI Confidence
                     </div>
                     <div class="confidence-bar">
                         <div class="confidence-fill" style="width: ${insight.confidence * 100}%"></div>
@@ -160,10 +160,10 @@ class InsightsManager {
                 </div>
                 <div class="insight-actions">
                     <button class="btn btn-primary" data-action="accept">
-                        ✅ 采纳建议
+                        ✅ Accept Suggestion
                     </button>
                     <button class="btn btn-secondary" data-action="dismiss">
-                        ❌ 忽略
+                        ❌ Dismiss
                     </button>
                 </div>
             </div>
@@ -175,8 +175,8 @@ class InsightsManager {
         this.container.innerHTML = `
             <div class="empty-state">
                 <div class="empty-icon">💡</div>
-                <div class="empty-text">暂无AI洞察</div>
-                <div class="empty-subtext">系统会分析您的使用习惯，并提供智能建议</div>
+                <div class="empty-text">No AI Insights Yet</div>
+                <div class="empty-subtext">The system will analyze your usage patterns and provide intelligent suggestions</div>
             </div>
         `;
     }
