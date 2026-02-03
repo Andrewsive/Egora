@@ -26,16 +26,16 @@ class InsightsManager {
     async loadInsights() {
         try {
             let insights = await window.storageManager.getInsights();
-            
+
             // Filter out invalid insights (must have id, type, title, description, confidence)
             this.insights = insights.filter(insight => {
-                const isValid = insight && 
-                               insight.id && 
-                               insight.type && 
-                               insight.title && 
-                               insight.description && 
-                               typeof insight.confidence === 'number';
-                
+                const isValid = insight &&
+                    insight.id &&
+                    insight.type &&
+                    insight.title &&
+                    insight.description &&
+                    typeof insight.confidence === 'number';
+
                 if (!isValid) {
                     console.warn('Invalid insight found and filtered out:', insight);
                 }
@@ -49,8 +49,8 @@ class InsightsManager {
                 insights = await window.storageManager.getInsights();
                 // Filter again after loading demo data
                 this.insights = insights.filter(insight => {
-                    return insight && insight.id && insight.type && insight.title && 
-                           insight.description && typeof insight.confidence === 'number';
+                    return insight && insight.id && insight.type && insight.title &&
+                        insight.description && typeof insight.confidence === 'number';
                 });
             }
         } catch (error) {
@@ -65,40 +65,40 @@ class InsightsManager {
             {
                 id: 'insight_1',
                 type: 'pattern_found',
-                title: '发现购物模式',
-                description: '你似乎经常在超市时忘记查看购物清单。是否需要在检测到你在超市时自动显示清单？',
+                title: 'Shopping Pattern Detected',
+                description: 'You often forget to check your shopping list when at the supermarket. Would you like to automatically display the list when you are detected at  the supermarket?',
                 confidence: 0.87,
                 basedOnEvents: ['evt_1', 'evt_3'],
                 suggestedAction: {
                     type: 'create_reminder',
-                    title: '查看购物清单',
-                    context: '当我在超市时'
+                    title: 'Check Shopping List',
+                    context: 'When I am at the supermarket'
                 }
             },
             {
                 id: 'insight_2',
                 type: 'new_reminder',
-                title: '健康提醒建议',
-                description: '根据您的作息规律，发现您每天下午3点左右都在咖啡厅工作。建议设置定时提醒，休息并补充水分。',
+                title: 'Health Reminder Suggestion',
+                description: 'Based on your routine, you work at a cafe around 3 PM daily. Suggest setting a reminder to take a break and hydrate.',
                 confidence: 0.92,
                 basedOnEvents: ['evt_2'],
                 suggestedAction: {
                     type: 'create_reminder',
-                    title: '休息并喝水',
-                    context: '当我在咖啡厅工作超过2小时时'
+                    title: 'Take a Break and Drink Water',
+                    context: 'When I have been working at a cafe for more than 2 hours'
                 }
             },
             {
                 id: 'insight_3',
                 type: 'modify_rule',
-                title: '优化现有提醒',
-                description: '您的"给妈妈打电话"提醒在工作时间触发后经常被忽略。建议调整为周末或下班后触发。',
+                title: 'Optimize Existing Reminder',
+                description: 'Your "Call Mom" reminder is often dismissed when triggered during work hours. Suggest adjusting to trigger on weekends or after work.',
                 confidence: 0.78,
                 basedOnEvents: ['evt_3'],
                 suggestedAction: {
                     type: 'modify_reminder',
                     reminderId: 'reminder_2',
-                    newContext: '当我在周末或下班回家后'
+                    newContext: 'When I am on weekends or after work heading home'
                 }
             }
         ];
