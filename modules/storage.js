@@ -79,6 +79,18 @@ class StorageManager {
         });
     }
 
+
+    // Update or insert (upsert) - overwrites if ID exists
+    async upsert(storeName, data) {
+        const transaction = this.db.transaction([storeName], 'readwrite');
+        const store = transaction.objectStore(storeName);
+        return new Promise((resolve, reject) => {
+            const request = store.put(data);
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+    }
+
     async update(storeName, data) {
         const transaction = this.db.transaction([storeName], 'readwrite');
         const store = transaction.objectStore(storeName);

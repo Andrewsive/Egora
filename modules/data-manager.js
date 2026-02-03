@@ -53,7 +53,7 @@ class DataManager {
         if (data.reminders && Array.isArray(data.reminders)) {
             for (const reminder of data.reminders) {
                 try {
-                    await window.storageManager.addReminder(reminder);
+                    await window.storageManager.upsert('reminders', reminder);
                     imported.reminders++;
                 } catch (error) {
                     console.warn('Failed to import reminder:', reminder.id, error);
@@ -65,7 +65,7 @@ class DataManager {
         if (data.timeline && Array.isArray(data.timeline)) {
             for (const event of data.timeline) {
                 try {
-                    await window.storageManager.addTimelineEvent(event);
+                    await window.storageManager.upsert('timeline', event);
                     imported.timeline++;
                 } catch (error) {
                     console.warn('Failed to import timeline event:', event.id, error);
@@ -77,7 +77,7 @@ class DataManager {
         if (data.insights && Array.isArray(data.insights)) {
             for (const insight of data.insights) {
                 try {
-                    await window.storageManager.addInsight(insight);
+                    await window.storageManager.upsert('insights', insight);
                     imported.insights++;
                 } catch (error) {
                     console.warn('Failed to import insight:', insight.id, error);
