@@ -58,11 +58,11 @@
             <!-- Reminders View -->
             <section id="remindersView" class="view-container">
                 <div class="view-header">
-                    <h2 class="view-title">我的提醒</h2>
-                    <button class="icon-btn primary" id="addReminderBtn" aria-label="添加提醒">➕</button>
+                    <h2 class="view-title">My Reminders</h2>
+                    <button class="icon-btn primary" id="addReminderBtn" aria-label="Add Reminder">➕</button>
                 </div>
                 <div class="search-bar">
-                    <input type="text" id="searchReminders" placeholder="🔍 搜索提醒..." class="search-input">
+                    <input type="text" id="searchReminders" placeholder="🔍 Search reminders..." class="search-input">
                 </div>
                 <div id="remindersContent" class="reminders-content">
                     <!-- Reminder cards will be rendered here -->
@@ -72,7 +72,7 @@
             <!-- Insights View -->
             <section id="insightsView" class="view-container">
                 <div class="view-header">
-                    <h2 class="view-title">AI洞察</h2>
+                    <h2 class="view-title">AI Insights</h2>
                     <span class="badge" id="insightsBadge">0</span>
                 </div>
                 <div id="insightsContent" class="insights-content">
@@ -105,31 +105,31 @@
         <div class="modal-overlay"></div>
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="modalTitle">创建提醒</h3>
+                <h3 class="modal-title" id="modalTitle">Create Reminder</h3>
                 <button class="close-btn" id="closeModalBtn">✕</button>
             </div>
             <div class="modal-body">
                 <form id="reminderForm">
                     <div class="form-group">
-                        <label for="reminderTitle">提醒我…</label>
-                        <input type="text" id="reminderTitle" class="form-input" placeholder="例如：买牛奶" required>
+                        <label for="reminderTitle">Remind me to...</label>
+                        <input type="text" id="reminderTitle" class="form-input" placeholder="e.g., Buy milk" required>
                     </div>
                     <div class="form-group">
-                        <label for="reminderContext">当我…</label>
-                        <textarea id="reminderContext" class="form-input" rows="3" placeholder="例如：在超市的时候"
-                            required></textarea>
+                        <label for="reminderContext">When I...</label>
+                        <textarea id="reminderContext" class="form-input" rows="3"
+                            placeholder="e.g., When I'm at the supermarket" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="reminderPriority">优先级</label>
+                        <label for="reminderPriority">Priority</label>
                         <select id="reminderPriority" class="form-input">
-                            <option value="low">低</option>
-                            <option value="medium" selected>中</option>
-                            <option value="high">高</option>
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
                         </select>
                     </div>
                     <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" id="cancelModalBtn">取消</button>
-                        <button type="submit" class="btn btn-primary">保存</button>
+                        <button type="button" class="btn btn-secondary" id="cancelModalBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
             </div>
@@ -141,7 +141,7 @@
         <div class="modal-overlay"></div>
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">事件详情</h3>
+                <h3 class="modal-title">Event Details</h3>
                 <button class="close-btn" id="closeEventModalBtn">✕</button>
             </div>
             <div class="modal-body" id="eventModalBody">
@@ -154,11 +154,11 @@
     <div id="notificationPrompt" class="notification-prompt hidden">
         <div class="prompt-content">
             <div class="prompt-icon">🔔</div>
-            <h3>启用通知</h3>
-            <p>允许应用发送通知，以便及时提醒您</p>
+            <h3>Enable Notifications</h3>
+            <p>Allow app to send notifications for timely reminders</p>
             <div class="prompt-actions">
-                <button class="btn btn-secondary" id="skipNotificationBtn">稍后</button>
-                <button class="btn btn-primary" id="enableNotificationBtn">启用</button>
+                <button class="btn btn-secondary" id="skipNotificationBtn">Later</button>
+                <button class="btn btn-primary" id="enableNotificationBtn">Enable</button>
             </div>
         </div>
     </div>
@@ -171,7 +171,7 @@
     <!-- Connection Status Indicator -->
     <div id="connectionStatus" class="connection-status">
         <span class="status-dot"></span>
-        <span class="status-text">连接中...</span>
+        <span class="status-text">Connecting...</span>
     </div>
 
 
@@ -180,7 +180,7 @@
         <div class="modal-overlay"></div>
         <div class="modal-container">
             <div class="modal-header">
-                <h2>设置</h2>
+                <h2>Settings</h2>
                 <button class="icon-btn" id="closeSettingsBtn">
                     <svg viewBox="0 0 24 24" width="24" height="24">
                         <path
@@ -191,49 +191,49 @@
             </div>
             <div class="modal-body">
                 <div class="settings-section">
-                    <h3>📦 数据管理</h3>
+                    <h3>📦 Data Management</h3>
 
                     <div class="setting-item">
                         <div class="setting-info">
-                            <div class="setting-title">导出数据</div>
-                            <div class="setting-desc">将所有提醒、时间线和洞察导出为JSON文件</div>
+                            <div class="setting-title">Export Data</div>
+                            <div class="setting-desc">Export all reminders, timeline, and insights as JSON file</div>
                         </div>
                         <button class="btn btn-primary" id="exportDataBtn">
-                            📥 导出
+                            📥 Export
                         </button>
                     </div>
 
                     <div class="setting-item">
                         <div class="setting-info">
-                            <div class="setting-title">导入数据</div>
-                            <div class="setting-desc">从JSON文件恢复数据</div>
+                            <div class="setting-title">Import Data</div>
+                            <div class="setting-desc">Restore data from JSON file</div>
                         </div>
                         <div class="file-input-wrapper">
                             <input type="file" id="importDataInput" accept=".json" style="display: none;">
                             <button class="btn btn-secondary"
                                 onclick="document.getElementById('importDataInput').click()">
-                                📤 导入
+                                📤 Import
                             </button>
                         </div>
                     </div>
 
                     <div class="setting-item">
                         <div class="setting-info">
-                            <div class="setting-title">清除所有数据</div>
-                            <div class="setting-desc">删除所有本地数据（不可恢复）</div>
+                            <div class="setting-title">Clear All Data</div>
+                            <div class="setting-desc">Delete all local data (cannot be undone)</div>
                         </div>
                         <button class="btn btn-danger" id="clearDataBtn">
-                            🗑️ 清除
+                            🗑️ Clear
                         </button>
                     </div>
                 </div>
 
                 <div class="settings-section">
-                    <h3>ℹ️ 关于</h3>
+                    <h3>ℹ️ About</h3>
                     <div class="setting-item">
                         <div class="setting-info">
-                            <div class="setting-title">版本信息</div>
-                            <div class="setting-desc">情境提醒系统 v1.0.0</div>
+                            <div class="setting-title">Version</div>
+                            <div class="setting-desc">Context Reminder System v1.0.0</div>
                         </div>
                     </div>
                 </div>
@@ -247,22 +247,22 @@
         <div class="modal-container">
             <div class="modal-header">
                 <div class="reminder-badge">
-                    🔔 提醒触发
+                    🔔 Reminder Triggered
                 </div>
             </div>
             <div class="modal-body">
-                <h2 id="reminderModalTitle" class="reminder-title">提醒标题</h2>
-                <p id="reminderModalContext" class="reminder-context">情境描述</p>
+                <h2 id="reminderModalTitle" class="reminder-title">Reminder Title</h2>
+                <p id="reminderModalContext" class="reminder-context">Context Description</p>
 
                 <div class="reminder-actions">
                     <button class="btn btn-primary btn-large" id="ackReminderBtn">
-                        ✅ 确认
+                        ✅ Acknowledge
                     </button>
                     <button class="btn btn-warning btn-large" id="snoozeReminderBtn">
-                        ⏰ 稍后
+                        ⏰ Snooze
                     </button>
                     <button class="btn btn-danger btn-large" id="dismissReminderBtn">
-                        ❌ 拒绝
+                        ❌ Dismiss
                     </button>
                 </div>
             </div>
