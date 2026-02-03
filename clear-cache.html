@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清除缓存工具</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 3rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .status {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            display: none;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+
+        ul {
+            text-align: left;
+            color: #666;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🧹 情境提醒 - 缓存清除工具</h1>
+        <p>如果应用功能异常，请使用此工具清除所有缓存</p>
+
+        <button class="btn" onclick="clearAllCache()">清除所有缓存</button>
+        <button class="btn" onclick="goToApp()">返回应用</button>
+
+        <div id="status" class="status"></div>
+
+        <div style="margin-top: 2rem; text-align: left;">
+            <h3>将要清除的内容：</h3>
+            <ul>
+                <li>Service Worker 缓存</li>
+                <li>IndexedDB 数据库</li>
+                <li>localStorage 数据</li>
+                <li>浏览器缓存</li>
+            </ul>
+            <p style="color: #dc3545; font-weight: bold;">⚠️ 注意：这将删除所有本地数据！</p>
+        </div>
+    </div>
+
+    <script>
+        async function clearAllCache() {
+            const status = document.getElementById('status');
+            status.className = 'status';
+            status.textContent = '正在清除...';
+            status.style.display = 'block';
+
+            try {
+                // Unregister service workers
+                if ('serviceWorker' in navigator) {
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    for (const registration of registrations) {
+                        await registration.unregister();
+                    }
+                }
+
+                // Clear all caches
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    await Promise.all(cacheNames.map(name => caches.delete(name)));
+                }
+
+                // Delete IndexedDB
+                const databases = await indexedDB.databases();
+                for (const db of databases) {
+                    indexedDB.deleteDatabase(db.name);
+                }
+
+                // Clear localStorage
+                localStorage.clear();
+
+                // Clear sessionStorage
+                sessionStorage.clear();
+
+                status.className = 'status success';
+                status.textContent = '✅ 缓存已清除！3秒后自动跳转到应用...';
+
+                setTimeout(() => {
+                    window.location.href = '/index.html';
+                }, 3000);
+
+            } catch (error) {
+                status.className = 'status error';
+                status.textContent = '❌ 清除失败: ' + error.message;
+            }
+        }
+
+        function goToApp() {
+            window.location.href = '/index.html';
+        }
+    </script>
+</body>
+
+</html>

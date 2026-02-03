@@ -47,6 +47,10 @@ class ContextReminderApp {
             this.setupModals();
             console.log('✅ Modals setup complete');
 
+            // Setup settings panel
+            this.setupSettings();
+            console.log('✅ Settings setup complete');
+
             this.initialized = true;
             console.log('✨ App initialization complete!');
 
@@ -265,9 +269,94 @@ class ContextReminderApp {
             }
         };
 
-        // Settings button (placeholder)
+        // Settings button
         document.getElementById('settingsBtn')?.addEventListener('click', () => {
-            window.showToast('设置功能即将推出');
+            const modal = document.getElementById('settingsModal');
+            modal?.classList.add('active');
+        });
+    }
+
+    // Setup settings panel
+    setupSettings() {
+        const modal = document.getElementById('settingsModal');
+        const closeBtn = document.getElementById('closeSettingsBtn');
+        const overlay = modal?.querySelector('.modal-overlay');
+
+        // Close modal
+        const closeModal = () => {
+            modal?.classList.remove('active');
+        };
+
+        closeBtn?.addEventListener('click', closeModal);
+        overlay?.addEventListener('click', closeModal);
+
+        // Export data
+        document.getElementById('exportDataBtn')?.addEventListener('click', async () => {
+            try {
+                await window.dataManager.exportData();
+                window.showToast('✅ 数据导出成功');
+            } catch (error) {
+                console.error('Export error:', error);
+                window.showToast('❌ 导出失败: ' + error.message);
+            }
+        });
+
+        // Import data
+        document.getElementById('importDataInput')?.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            try {
+                const imported = await window.dataManager.importData(file);
+                window.showToast(`✅ 导入成功: ${imported.reminders}个提醒, ${imported.timeline}个事件, ${imported.insights}个洞察`);
+
+                // Refresh all views using correct method names
+                await window.timelineManager.loadEvents();
+                window.timelineManager.render();
+                await window.remindersManager.loadReminders();
+                window.remindersManager.render();
+                await window.insightsManager.loadInsights();
+                window.insightsManager.render();
+                window.insightsManager.updateBadge();
+
+                closeModal();
+            } catch (error) {
+                console.error('Import error:', error);
+                window.showToast('❌ 导入失败: ' + error.message);
+            }
+
+            // Reset input
+            e.target.value = '';
+        });
+
+        // Clear all data
+        document.getElementById('clearDataBtn')?.addEventListener('click', async () => {
+            if (!confirm('确定要清除所有数据吗？此操作不可恢复！')) {
+                return;
+            }
+
+            if (!confirm('再次确认：真的要删除所有提醒、时间线和洞察数据吗？')) {
+                return;
+            }
+
+            try {
+                await window.dataManager.clearAllData();
+                window.showToast('✅ 所有数据已清除');
+
+                // Refresh all views using correct method names
+                await window.timelineManager.loadEvents();
+                window.timelineManager.render();
+                await window.remindersManager.loadReminders();
+                window.remindersManager.render();
+                await window.insightsManager.loadInsights();
+                window.insightsManager.render();
+                window.insightsManager.updateBadge();
+
+                closeModal();
+            } catch (error) {
+                console.error('Clear error:', error);
+                window.showToast('❌ 清除失败: ' + error.message);
+            }
         });
     }
 

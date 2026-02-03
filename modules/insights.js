@@ -25,13 +25,33 @@ class InsightsManager {
     // Load insights from storage
     async loadInsights() {
         try {
-            this.insights = await window.storageManager.getInsights();
+            let insights = await window.storageManager.getInsights();
+            
+            // Filter out invalid insights (must have id, type, title, description, confidence)
+            this.insights = insights.filter(insight => {
+                const isValid = insight && 
+                               insight.id && 
+                               insight.type && 
+                               insight.title && 
+                               insight.description && 
+                               typeof insight.confidence === 'number';
+                
+                if (!isValid) {
+                    console.warn('Invalid insight found and filtered out:', insight);
+                }
+                return isValid;
+            });
 
             // If no insights, create demo data (only on first load)
             const hasInteracted = window.storageManager.getLocal('insights_interacted', false);
             if (this.insights.length === 0 && !hasInteracted) {
                 await this.createDemoData();
-                this.insights = await window.storageManager.getInsights();
+                insights = await window.storageManager.getInsights();
+                // Filter again after loading demo data
+                this.insights = insights.filter(insight => {
+                    return insight && insight.id && insight.type && insight.title && 
+                           insight.description && typeof insight.confidence === 'number';
+                });
             }
         } catch (error) {
             console.error('Error loading insights:', error);
