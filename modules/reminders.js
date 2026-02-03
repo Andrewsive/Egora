@@ -46,8 +46,8 @@ class RemindersManager {
         const demoReminders = [
             {
                 id: 'reminder_1',
-                title: '买牛奶',
-                context: '当我在超市时',
+                title: 'Buy Milk',
+                context: 'When I am at the supermarket',
                 priority: 'medium',
                 enabled: true,
                 createdAt: now - 86400000,
@@ -55,8 +55,8 @@ class RemindersManager {
             },
             {
                 id: 'reminder_2',
-                title: '给妈妈打电话',
-                context: '当我在回家的路上时',
+                title: 'Call Mom',
+                context: 'When I am on my way home',
                 priority: 'high',
                 enabled: true,
                 createdAt: now - 172800000,
@@ -64,8 +64,8 @@ class RemindersManager {
             },
             {
                 id: 'reminder_3',
-                title: '喝水休息',
-                context: '当我在办公室工作超过2小时时',
+                title: 'Drink Water and Rest',
+                context: 'When I have been working at the office for more than 2 hours',
                 priority: 'low',
                 enabled: false,
                 createdAt: now - 259200000,
@@ -174,14 +174,14 @@ class RemindersManager {
     // Render empty state
     renderEmpty() {
         const message = this.searchQuery
-            ? `未找到匹配"${this.searchQuery}"的提醒`
-            : '还没有创建提醒';
+            ? `No reminders match "${this.searchQuery}"`
+            : 'No reminders yet';
 
         this.container.innerHTML = `
             <div class="empty-state">
                 <div class="empty-icon">🔔</div>
                 <div class="empty-text">${message}</div>
-                <div class="empty-subtext">点击右上角的"➕"按钮创建新提醒</div>
+                <div class="empty-subtext">Click the "➕" button in the top right to create a new reminder</div>
             </div>
         `;
     }
@@ -300,7 +300,7 @@ class RemindersManager {
             if (reminder) {
                 reminder.enabled = enabled;
                 await window.storageManager.updateReminder(reminder);
-                window.showToast(enabled ? '提醒已启用' : '提醒已禁用');
+                window.showToast(enabled ? 'Reminder enabled' : 'Reminder disabled');
 
                 // Sync to server
                 window.wsManager.send({
@@ -323,7 +323,7 @@ class RemindersManager {
 
     // Delete reminder
     async deleteReminder(id) {
-        if (!confirm('确定要删除这个提醒吗？')) {
+        if (!confirm('Are you sure you want to delete this reminder?')) {
             return;
         }
 
@@ -331,7 +331,7 @@ class RemindersManager {
             await window.storageManager.deleteReminder(id);
             await this.loadReminders();
             this.render();
-            window.showToast('提醒已删除');
+            window.showToast('Reminder deleted');
 
             // Sync to server
             window.wsManager.send({
@@ -340,16 +340,16 @@ class RemindersManager {
             });
         } catch (error) {
             console.error('Error deleting reminder:', error);
-            window.showToast('删除失败，请重试');
+            window.showToast('Delete failed, please retry');
         }
     }
 
     // Get priority label
     getPriorityLabel(priority) {
         const labels = {
-            'high': '高',
-            'medium': '中',
-            'low': '低'
+            'high': 'High',
+            'medium': 'Medium',
+            'low': 'Low'
         };
         return labels[priority] || priority;
     }
