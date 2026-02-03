@@ -91,11 +91,7 @@ class NotificationManager {
             data: {
                 type: 'reminder',
                 reminderId: reminder.id
-            },
-            actions: [
-                { action: 'acknowledge', title: '知道了' },
-                { action: 'snooze', title: '稍后提醒' }
-            ]
+            }
         };
 
         return await this.show('🔔 情境提醒', options);

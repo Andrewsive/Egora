@@ -301,6 +301,19 @@ class TimelineManager {
         modal.classList.add('active');
     }
 
+    // Update event status
+    async updateEventStatus(id, response) {
+        const event = this.events.find(e => e.id === id);
+        if (event) {
+            event.userResponse = response;
+            // Use upsert to update in DB
+            await window.storageManager.upsert('timeline', event);
+            this.render();
+            return true;
+        }
+        return false;
+    }
+
     // Add new event
     async addEvent(event) {
         event.id = 'evt_' + Date.now();
@@ -309,6 +322,7 @@ class TimelineManager {
         await window.storageManager.addTimelineEvent(event);
         await this.loadEvents();
         this.render();
+        return event.id; // Return ID for later updates
     }
 }
 

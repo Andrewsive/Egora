@@ -144,8 +144,8 @@ class ContextReminderApp {
                 await window.remindersManager.loadReminders();
                 window.remindersManager.render();
 
-                // Add to timeline
-                await window.timelineManager.addEvent({
+                // Add to timeline and get ID
+                const eventId = await window.timelineManager.addEvent({
                     type: 'reminder_triggered',
                     contextDescription: data.contextMatch,
                     reminderTitle: data.reminderTitle || reminder.title,
@@ -155,7 +155,20 @@ class ContextReminderApp {
                     userResponse: null
                 });
 
-                // Show notification
+                // Show interactive modal
+                const modal = document.getElementById('reminderActionModal');
+                if (modal) {
+                    this.currentReminderEventId = eventId;
+                    const titleEl = document.getElementById('reminderModalTitle');
+                    const contextEl = document.getElementById('reminderModalContext');
+
+                    if (titleEl) titleEl.textContent = reminder.title;
+                    if (contextEl) contextEl.textContent = data.contextMatch;
+
+                    modal.classList.add('active');
+                }
+
+                // Show notification (for background)
                 await window.notificationManager.showReminder(
                     reminder,
                     data.contextMatch
@@ -246,6 +259,29 @@ class ContextReminderApp {
         document.querySelector('#eventModal .modal-overlay')?.addEventListener('click', () => {
             document.getElementById('eventModal').classList.remove('active');
         });
+
+        // Reminder Action Modal
+        const handleReminderResponse = async (response) => {
+            const modal = document.getElementById('reminderActionModal');
+            modal?.classList.remove('active');
+
+            if (this.currentReminderEventId) {
+                await window.timelineManager.updateEventStatus(this.currentReminderEventId, response);
+
+                let msg = '';
+                switch (response) {
+                    case 'acknowledged': msg = '✅ 已确认'; break;
+                    case 'snoozed': msg = '⏰ 已推迟'; break;
+                    case 'dismissed': msg = '❌ 已忽略'; break;
+                }
+                window.showToast(msg);
+                this.currentReminderEventId = null;
+            }
+        };
+
+        document.getElementById('ackReminderBtn')?.addEventListener('click', () => handleReminderResponse('acknowledged'));
+        document.getElementById('snoozeReminderBtn')?.addEventListener('click', () => handleReminderResponse('snoozed'));
+        document.getElementById('dismissReminderBtn')?.addEventListener('click', () => handleReminderResponse('dismissed'));
     }
 
     // Setup global utilities

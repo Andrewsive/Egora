@@ -1200,3 +1200,53 @@ select.form-input {
 .mb-md {
     margin-bottom: var(--space-md);
 }
+/* Modal Container - Main content box within modal */
+.modal-container {
+    background: var(--color-bg-secondary);
+    border-radius: 1rem;
+    max-width: 600px;
+    margin: auto;
+    position: relative;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Settings Specific Styles */
+.settings-section {
+    margin-bottom: 2rem;
+}
+
+.settings-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--color-text-primary);
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.5rem;
+    gap: 1rem;
+}
+
+.setting-info {
+    flex: 1;
+}
+
+.setting-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--color-text-primary);
+}
+
+.setting-desc {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+

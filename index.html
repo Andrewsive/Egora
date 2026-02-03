@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="情境驱动提醒系统 - 基于第一人称视角AI的智能提醒">
     <meta name="theme-color" content="#0f172a">
     <title>情境提醒 · Context Reminder</title>
-    
+
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
-    
+
     <!-- Preload critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <!-- App Container -->
     <div id="app" class="app-container">
-        
+
         <!-- Header -->
         <header class="app-header">
             <div class="header-content">
@@ -37,7 +39,7 @@
 
         <!-- Main Content Views -->
         <main class="main-content">
-            
+
             <!-- Timeline View -->
             <section id="timelineView" class="view-container active">
                 <div class="view-header">
@@ -114,7 +116,8 @@
                     </div>
                     <div class="form-group">
                         <label for="reminderContext">当我…</label>
-                        <textarea id="reminderContext" class="form-input" rows="3" placeholder="例如：在超市的时候" required></textarea>
+                        <textarea id="reminderContext" class="form-input" rows="3" placeholder="例如：在超市的时候"
+                            required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="reminderPriority">优先级</label>
@@ -172,50 +175,95 @@
     </div>
 
 
-    <!-- Modal: Settings -->
+    <!-- Settings Modal -->
     <div id="settingsModal" class="modal">
         <div class="modal-overlay"></div>
-        <div class="modal-content">
+        <div class="modal-container">
             <div class="modal-header">
-                <h3 class="modal-title">设置</h3>
-                <button class="close-btn" id="closeSettingsBtn">✕</button>
+                <h2>设置</h2>
+                <button class="icon-btn" id="closeSettingsBtn">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                            fill="currentColor" />
+                    </svg>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="settings-section">
-                    <h4 class="settings-subtitle">📦 数据管理</h4>
-                    <div class="settings-item">
+                    <h3>📦 数据管理</h3>
+
+                    <div class="setting-item">
                         <div class="setting-info">
-                            <div class="setting-label">导出数据</div>
-                            <div class="setting-description">将所有提醒、时间线和洞察导出为JSON文件</div>
+                            <div class="setting-title">导出数据</div>
+                            <div class="setting-desc">将所有提醒、时间线和洞察导出为JSON文件</div>
                         </div>
-                        <button class="btn btn-primary" id="exportDataBtn">📥 导出</button>
+                        <button class="btn btn-primary" id="exportDataBtn">
+                            📥 导出
+                        </button>
                     </div>
-                    <div class="settings-item">
+
+                    <div class="setting-item">
                         <div class="setting-info">
-                            <div class="setting-label">导入数据</div>
-                            <div class="setting-description">从JSON文件恢复数据</div>
+                            <div class="setting-title">导入数据</div>
+                            <div class="setting-desc">从JSON文件恢复数据</div>
                         </div>
-                        <label class="btn btn-secondary" for="importDataInput">
-                            📤 导入
+                        <div class="file-input-wrapper">
                             <input type="file" id="importDataInput" accept=".json" style="display: none;">
-                        </label>
-                    </div>
-                    <div class="settings-item">
-                        <div class="setting-info">
-                            <div class="setting-label">清除所有数据</div>
-                            <div class="setting-description">删除所有本地数据（不可恢复）</div>
+                            <button class="btn btn-secondary"
+                                onclick="document.getElementById('importDataInput').click()">
+                                📤 导入
+                            </button>
                         </div>
-                        <button class="btn btn-danger" id="clearDataBtn">🗑️ 清除</button>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">清除所有数据</div>
+                            <div class="setting-desc">删除所有本地数据（不可恢复）</div>
+                        </div>
+                        <button class="btn btn-danger" id="clearDataBtn">
+                            🗑️ 清除
+                        </button>
                     </div>
                 </div>
+
                 <div class="settings-section">
-                    <h4 class="settings-subtitle">ℹ️ 关于</h4>
-                    <div class="settings-item">
+                    <h3>ℹ️ 关于</h3>
+                    <div class="setting-item">
                         <div class="setting-info">
-                            <div class="setting-label">版本信息</div>
-                            <div class="setting-description">情境提醒系统 v1.0.0</div>
+                            <div class="setting-title">版本信息</div>
+                            <div class="setting-desc">情境提醒系统 v1.0.0</div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reminder Action Modal -->
+    <div id="reminderActionModal" class="modal reminder-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="reminder-badge">
+                    🔔 提醒触发
+                </div>
+            </div>
+            <div class="modal-body">
+                <h2 id="reminderModalTitle" class="reminder-title">提醒标题</h2>
+                <p id="reminderModalContext" class="reminder-context">情境描述</p>
+
+                <div class="reminder-actions">
+                    <button class="btn btn-primary btn-large" id="ackReminderBtn">
+                        ✅ 确认
+                    </button>
+                    <button class="btn btn-warning btn-large" id="snoozeReminderBtn">
+                        ⏰ 稍后
+                    </button>
+                    <button class="btn btn-danger btn-large" id="dismissReminderBtn">
+                        ❌ 拒绝
+                    </button>
                 </div>
             </div>
         </div>
@@ -231,4 +279,5 @@
     <script src="modules/data-manager.js"></script>
     <script src="app.js"></script>
 </body>
+
 </html>
