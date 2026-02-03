@@ -154,9 +154,9 @@ class WebSocketManager {
         statusEl.className = `connection-status ${status}`;
 
         const statusText = {
-            'connecting': '连接中...',
-            'connected': '已连接',
-            'disconnected': '未连接'
+            'connecting': 'Connecting...',
+            'connected': 'Connected',
+            'disconnected': 'Disconnected'
         };
 
         statusEl.querySelector('.status-text').textContent = statusText[status] || status;
@@ -201,7 +201,7 @@ class WebSocketManager {
                     suggestion: {
                         id: 'insight_' + Date.now(),
                         type: 'pattern_found',
-                        title: '发现新模式',
+                        title: 'New Pattern Found',
                         description: this.getRandomInsight(),
                         confidence: 0.8 + Math.random() * 0.15,
                         basedOnEvents: []
@@ -214,12 +214,12 @@ class WebSocketManager {
     // Helper: Random context descriptions
     getRandomContext() {
         const contexts = [
-            '用户正在超市的牛奶货架前',
-            '用户在咖啡厅工作',
-            '用户在健身房锻炼',
-            '用户在回家的路上',
-            '用户在办公室开会',
-            '用户在餐厅用餐'
+            'User is at the supermarket milk aisle',
+            'User is working at a cafe',
+            'User is working out at the gym',
+            'User is on the way home',
+            'User is in a meeting at the office',
+            'User is dining at a restaurant'
         ];
         return contexts[Math.floor(Math.random() * contexts.length)];
     }
@@ -227,11 +227,11 @@ class WebSocketManager {
     // Helper: Random reminder titles
     getRandomReminderTitle() {
         const titles = [
-            '买牛奶',
-            '给妈妈打电话',
-            '完成项目报告',
-            '喝水休息',
-            '检查邮件'
+            'Buy Milk',
+            'Call Mom',
+            'Complete Project Report',
+            'Drink Water and Rest',
+            'Check Email'
         ];
         return titles[Math.floor(Math.random() * titles.length)];
     }
@@ -239,10 +239,10 @@ class WebSocketManager {
     // Helper: Random insights
     getRandomInsight() {
         const insights = [
-            '你似乎经常在超市时忽略购物清单，要不要以后提醒你？',
-            '检测到你每天下午3点左右都在咖啡厅，可以为这个时间段设置固定提醒',
-            '你最近经常忘记给家人打电话，建议设置周末提醒',
-            '发现你在健身房时总是忘记补充水分，要添加提醒吗？'
+            'You often ignore your shopping list at the supermarket, would you like a reminder?',
+            'Detected you are at a cafe around 3 PM daily, consider setting a regular reminder',
+            'You often forget to call family recently, suggest setting a weekend reminder',
+            'Noticed you always forget to hydrate at the gym, would you like to add a reminder?'
         ];
         return insights[Math.floor(Math.random() * insights.length)];
     }

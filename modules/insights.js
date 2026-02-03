@@ -130,9 +130,9 @@ class InsightsManager {
     // Render single insight
     renderInsight(insight) {
         const typeConfig = {
-            'pattern_found': { icon: '🔍', label: '模式发现' },
-            'new_reminder': { icon: '💡', label: '新提醒建议' },
-            'modify_rule': { icon: '✨', label: '优化建议' }
+            'pattern_found': { icon: '🔍', label: 'Pattern Found' },
+            'new_reminder': { icon: '💡', label: 'New Reminder Suggestion' },
+            'modify_rule': { icon: '✨', label: 'Optimization Suggestion' }
         };
 
         const config = typeConfig[insight.type] || typeConfig['pattern_found'];
@@ -211,7 +211,7 @@ class InsightsManager {
         // Validate insight structure
         if (!insight.suggestedAction) {
             console.error('Invalid insight: missing suggestedAction', insight);
-            window.showToast('洞察数据异常，请刷新页面重试');
+            window.showToast('Insight data error, please refresh and try again');
             return;
         }
 
@@ -234,7 +234,7 @@ class InsightsManager {
                 await window.remindersManager.loadReminders();
                 window.remindersManager.render();
 
-                window.showToast('✅ 已创建新提醒');
+                window.showToast('✅ New reminder created');
 
             } else if (action.type === 'modify_reminder') {
                 // Modify existing reminder
@@ -244,7 +244,7 @@ class InsightsManager {
                     await window.storageManager.updateReminder(reminder);
                     await window.remindersManager.loadReminders();
                     window.remindersManager.render();
-                    window.showToast('✅ 已更新提醒');
+                    window.showToast('✅ Reminder updated');
                 } else {
                     console.warn('Reminder not found, creating new one instead');
                     // If reminder doesn't exist, create a new one
@@ -260,7 +260,7 @@ class InsightsManager {
                     await window.storageManager.addReminder(newReminder);
                     await window.remindersManager.loadReminders();
                     window.remindersManager.render();
-                    window.showToast('✅ 已创建新提醒');
+                    window.showToast('✅ New reminder created');
                 }
             }
 
@@ -275,7 +275,7 @@ class InsightsManager {
 
         } catch (error) {
             console.error('Error accepting insight:', error);
-            window.showToast('操作失败，请重试');
+            window.showToast('Operation failed, please try again');
         }
     }
 
@@ -292,7 +292,7 @@ class InsightsManager {
 
             // Only show toast if not in silent mode
             if (!silent) {
-                window.showToast('已忽略建议');
+                window.showToast('Suggestion dismissed');
             }
 
             // Sync to server
@@ -316,7 +316,7 @@ class InsightsManager {
 
         // Show notification
         window.notificationManager.showInsight(insight);
-        window.showToast('💡 收到新的AI洞察');
+        window.showToast('💡 New AI insight received');
     }
 
     // Update insights badge

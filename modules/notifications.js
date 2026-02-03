@@ -84,7 +84,7 @@ class NotificationManager {
     // Show reminder notification
     async showReminder(reminder, context) {
         const options = {
-            body: `${context}\n\n提醒：${reminder.title}`,
+            body: `${context}\n\nReminder: ${reminder.title}`,
             tag: reminder.id,
             icon: this.getIconDataUrl(),
             requireInteraction: true,
@@ -94,13 +94,13 @@ class NotificationManager {
             }
         };
 
-        return await this.show('🔔 情境提醒', options);
+        return await this.show('🔔 Context Reminder', options);
     }
 
     // Show context detection notification
     async showContextDetected(context, confidence) {
         const options = {
-            body: `检测到情境：${context}\n置信度：${(confidence * 100).toFixed(0)}%`,
+            body: `Context detected: ${context}\nConfidence: ${(confidence * 100).toFixed(0)}%`,
             tag: 'context_' + Date.now(),
             requireInteraction: false,
             data: {
@@ -108,7 +108,7 @@ class NotificationManager {
             }
         };
 
-        return await this.show('👁️ 情境检测', options);
+        return await this.show('👁️ Context Detected', options);
     }
 
     // Show AI insight notification
@@ -123,7 +123,7 @@ class NotificationManager {
             }
         };
 
-        return await this.show('💡 AI洞察', options);
+        return await this.show('💡 AI Insight', options);
     }
 
     // Play notification sound

@@ -56,7 +56,7 @@ class ContextReminderApp {
 
         } catch (error) {
             console.error('❌ Error initializing app:', error);
-            this.showError('应用初始化失败，请刷新页面重试');
+            this.showError('App initialization failed, please refresh and try again');
         }
     }
 
@@ -221,16 +221,16 @@ class ContextReminderApp {
                 window.notificationManager.hidePermissionPrompt();
 
                 if (granted) {
-                    window.showToast('✅ 通知已启用');
+                    window.showToast('✅ Notifications enabled');
                     // Show a test notification
                     setTimeout(() => {
-                        window.notificationManager.show('通知已启用', {
-                            body: '您将及时收到情境提醒',
+                        window.notificationManager.show('Notifications Enabled', {
+                            body: 'You will receive context reminders in time',
                             requireInteraction: false
                         });
                     }, 500);
                 } else {
-                    window.showToast('⚠️ 通知权限被拒绝');
+                    window.showToast('⚠️ Notification permission denied');
                 }
             });
         } else {
@@ -242,7 +242,7 @@ class ContextReminderApp {
             skipBtn.addEventListener('click', () => {
                 console.log('🖱️ Skip button clicked!');
                 window.notificationManager.hidePermissionPrompt();
-                window.showToast('您可以稍后在设置中启用通知');
+                window.showToast('You can enable notifications later in settings');
             });
         } else {
             console.error('❌ Skip button not found!');
@@ -270,9 +270,9 @@ class ContextReminderApp {
 
                 let msg = '';
                 switch (response) {
-                    case 'acknowledged': msg = '✅ 已确认'; break;
-                    case 'snoozed': msg = '⏰ 已推迟'; break;
-                    case 'dismissed': msg = '❌ 已忽略'; break;
+                    case 'acknowledged': msg = '✅ Acknowledged'; break;
+                    case 'snoozed': msg = '⏰ Snoozed'; break;
+                    case 'dismissed': msg = '❌ Dismissed'; break;
                 }
                 window.showToast(msg);
                 this.currentReminderEventId = null;
@@ -330,10 +330,10 @@ class ContextReminderApp {
         document.getElementById('exportDataBtn')?.addEventListener('click', async () => {
             try {
                 await window.dataManager.exportData();
-                window.showToast('✅ 数据导出成功');
+                window.showToast('✅ Data exported successfully');
             } catch (error) {
                 console.error('Export error:', error);
-                window.showToast('❌ 导出失败: ' + error.message);
+                window.showToast('❌ Export failed: ' + error.message);
             }
         });
 
@@ -344,7 +344,7 @@ class ContextReminderApp {
 
             try {
                 const imported = await window.dataManager.importData(file);
-                window.showToast(`✅ 导入成功: ${imported.reminders}个提醒, ${imported.timeline}个事件, ${imported.insights}个洞察`);
+                window.showToast(`✅ Import successful: ${imported.reminders} reminders, ${imported.timeline} events, ${imported.insights} insights`);
 
                 // Refresh all views using correct method names
                 await window.timelineManager.loadEvents();
@@ -358,7 +358,7 @@ class ContextReminderApp {
                 closeModal();
             } catch (error) {
                 console.error('Import error:', error);
-                window.showToast('❌ 导入失败: ' + error.message);
+                window.showToast('❌ Import failed: ' + error.message);
             }
 
             // Reset input
@@ -367,17 +367,17 @@ class ContextReminderApp {
 
         // Clear all data
         document.getElementById('clearDataBtn')?.addEventListener('click', async () => {
-            if (!confirm('确定要清除所有数据吗？此操作不可恢复！')) {
+            if (!confirm('Are you sure you want to clear all data? This action cannot be undone!')) {
                 return;
             }
 
-            if (!confirm('再次确认：真的要删除所有提醒、时间线和洞察数据吗？')) {
+            if (!confirm('Confirm again: Do you really want to delete all reminders, timeline, and insights data?')) {
                 return;
             }
 
             try {
                 await window.dataManager.clearAllData();
-                window.showToast('✅ 所有数据已清除');
+                window.showToast('✅ All data cleared');
 
                 // Refresh all views using correct method names
                 await window.timelineManager.loadEvents();
@@ -391,7 +391,7 @@ class ContextReminderApp {
                 closeModal();
             } catch (error) {
                 console.error('Clear error:', error);
-                window.showToast('❌ 清除失败: ' + error.message);
+                window.showToast('❌ Clear failed: ' + error.message);
             }
         });
     }

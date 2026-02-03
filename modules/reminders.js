@@ -219,14 +219,14 @@ class RemindersManager {
 
         if (reminder) {
             // Edit mode
-            modalTitle.textContent = '编辑提醒';
+            modalTitle.textContent = 'Edit Reminder';
             document.getElementById('reminderTitle').value = reminder.title;
             document.getElementById('reminderContext').value = reminder.context;
             document.getElementById('reminderPriority').value = reminder.priority;
             this.currentEditingId = reminder.id;
         } else {
             // Create mode
-            modalTitle.textContent = '创建提醒';
+            modalTitle.textContent = 'Create Reminder';
             form.reset();
             this.currentEditingId = null;
         }
@@ -248,7 +248,7 @@ class RemindersManager {
         const priority = document.getElementById('reminderPriority').value;
 
         if (!title || !context) {
-            window.showToast('请填写完整信息');
+            window.showToast('Please fill in all fields');
             return;
         }
 
@@ -260,7 +260,7 @@ class RemindersManager {
                 reminder.context = context;
                 reminder.priority = priority;
                 await window.storageManager.updateReminder(reminder);
-                window.showToast('提醒已更新');
+                window.showToast('Reminder updated');
             } else {
                 // Create new reminder
                 const reminder = {
@@ -273,7 +273,7 @@ class RemindersManager {
                     lastTriggered: null
                 };
                 await window.storageManager.addReminder(reminder);
-                window.showToast('提醒已创建');
+                window.showToast('Reminder created');
             }
 
             // Refresh list
@@ -289,7 +289,7 @@ class RemindersManager {
 
         } catch (error) {
             console.error('Error saving reminder:', error);
-            window.showToast('保存失败，请重试');
+            window.showToast('Save failed, please try again');
         }
     }
 

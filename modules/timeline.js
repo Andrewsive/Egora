@@ -171,8 +171,8 @@ class TimelineManager {
         this.container.innerHTML = `
             <div class="empty-state">
                 <div class="empty-icon">📭</div>
-                <div class="empty-text">暂无事件记录</div>
-                <div class="empty-subtext">系统将自动记录情境检测和提醒事件</div>
+                <div class="empty-text">No Events Yet</div>
+                <div class="empty-subtext">The system will automatically record context detection and reminder events</div>
             </div>
         `;
     }
