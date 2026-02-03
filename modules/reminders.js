@@ -231,6 +231,24 @@ class RemindersManager {
             this.currentEditingId = null;
         }
 
+        // Set custom validation messages in English
+        const titleInput = document.getElementById('reminderTitle');
+        const contextInput = document.getElementById('reminderContext');
+
+        titleInput.oninvalid = function (e) {
+            e.target.setCustomValidity('Please fill in this field.');
+        };
+        titleInput.oninput = function (e) {
+            e.target.setCustomValidity('');
+        };
+
+        contextInput.oninvalid = function (e) {
+            e.target.setCustomValidity('Please fill in this field.');
+        };
+        contextInput.oninput = function (e) {
+            e.target.setCustomValidity('');
+        };
+
         modal.classList.add('active');
     }
 

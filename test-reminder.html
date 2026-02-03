@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Reminder Modal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            background: white;
+            padding: 3rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🧪 Test Reminder Modal</h1>
+
+        <div class="info">
+            <strong>Test Purpose:</strong><br>
+            This page will trigger a reminder action modal to test the three buttons:
+            <ul>
+                <li>✅ Acknowledge</li>
+                <li>⏰ Snooze</li>
+                <li>❌ Dismiss</li>
+            </ul>
+        </div>
+
+        <button class="btn" onclick="triggerTestReminder()">🔔 Trigger Test Reminder</button>
+        <button class="btn" onclick="goToApp()">Back to App</button>
+    </div>
+
+    <script>
+        function triggerTestReminder() {
+            // Store test data in sessionStorage
+            sessionStorage.setItem('testReminderTrigger', 'true');
+            // Redirect to main app
+            window.location.href = '/index.html';
+        }
+
+        function goToApp() {
+            window.location.href = '/index.html';
+        }
+    </script>
+</body>
+
+</html>

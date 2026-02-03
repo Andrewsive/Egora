@@ -51,6 +51,15 @@ class ContextReminderApp {
             this.setupSettings();
             console.log('✅ Settings setup complete');
 
+            // Check if test reminder trigger is set
+            if (sessionStorage.getItem('testReminderTrigger') === 'true') {
+                sessionStorage.removeItem('testReminderTrigger');
+                // Trigger a test reminder after a short delay
+                setTimeout(() => {
+                    this.triggerTestReminder();
+                }, 1000);
+            }
+
             this.initialized = true;
             console.log('✨ App initialization complete!');
 
@@ -409,6 +418,54 @@ class ContextReminderApp {
     // Show error message
     showError(message) {
         alert(message);
+    }
+
+    // Test function: Trigger reminder action modal for testing
+    async triggerTestReminder() {
+        console.log('🧪 Triggering test reminder modal...');
+
+        // Get or create a test reminder
+        let testReminder = this.reminders?.find(r => r.title === 'Buy Milk');
+
+        if (!testReminder) {
+            // Create a test reminder if it doesn't exist
+            testReminder = {
+                id: 'test_reminder_' + Date.now(),
+                title: 'Buy Milk',
+                context: 'When I\'m at the supermarket',
+                priority: 'high',
+                enabled: true,
+                createdAt: Date.now(),
+                lastTriggered: Date.now()
+            };
+        }
+
+        // Simulate a reminder trigger event
+        const eventId = await window.timelineManager.addEvent({
+            type: 'reminder_triggered',
+            contextDescription: 'User is at the supermarket milk aisle',
+            reminderTitle: testReminder.title,
+            reminderId: testReminder.id,
+            aiConfidence: 0.95,
+            timestamp: Date.now(),
+            userResponse: null
+        });
+
+        // Show the reminder action modal
+        this.currentReminderEventId = eventId;
+        const modal = document.getElementById('reminderActionModal');
+        if (modal) {
+            const titleEl = document.getElementById('reminderModalTitle');
+            const contextEl = document.getElementById('reminderModalContext');
+
+            if (titleEl) titleEl.textContent = testReminder.title;
+            if (contextEl) contextEl.textContent = 'User is at the supermarket milk aisle';
+
+            modal.classList.add('active');
+            console.log('✅ Test reminder modal opened!');
+        } else {
+            console.error('❌ Reminder action modal not found!');
+        }
     }
 }
 
