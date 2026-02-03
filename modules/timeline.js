@@ -48,8 +48,8 @@ class TimelineManager {
                 id: 'evt_1',
                 timestamp: now - 3600000, // 1 hour ago
                 type: 'reminder_triggered',
-                contextDescription: '检测到您在超市的牛奶货架前',
-                reminderTitle: '买牛奶',
+                contextDescription: 'Detected you are at the supermarket milk aisle',
+                reminderTitle: 'Buy Milk',
                 reminderId: 'reminder_1',
                 userResponse: 'acknowledged',
                 aiConfidence: 0.92
@@ -58,15 +58,15 @@ class TimelineManager {
                 id: 'evt_2',
                 timestamp: now - 7200000, // 2 hours ago
                 type: 'context_detected',
-                contextDescription: '您正在咖啡厅工作',
+                contextDescription: 'You are working at a cafe',
                 aiConfidence: 0.85
             },
             {
                 id: 'evt_3',
                 timestamp: now - 86400000, // Yesterday
                 type: 'reminder_triggered',
-                contextDescription: '检测到您在办公室',
-                reminderTitle: '给妈妈打电话',
+                contextDescription: 'Detected you are at the office',
+                reminderTitle: 'Call Mom',
                 reminderId: 'reminder_2',
                 userResponse: 'dismissed',
                 aiConfidence: 0.78
@@ -75,7 +75,7 @@ class TimelineManager {
                 id: 'evt_4',
                 timestamp: now - 172800000, // 2 days ago
                 type: 'context_detected',
-                contextDescription: '您在健身房锻炼',
+                contextDescription: 'You are working out at the gym',
                 aiConfidence: 0.88
             }
         ];
@@ -89,7 +89,7 @@ class TimelineManager {
     async refresh() {
         await this.loadEvents();
         this.render();
-        window.showToast('时间线已刷新');
+        window.showToast('Timeline refreshed');
     }
 
     // Render timeline
@@ -235,9 +235,9 @@ class TimelineManager {
     // Get user response label
     getUserResponseLabel(response) {
         const labels = {
-            'acknowledged': '✅ 已确认',
-            'dismissed': '❌ 已忽略',
-            'snoozed': '⏰ 已推迟'
+            'acknowledged': '✅ Acknowledged',
+            'dismissed': '❌ Dismissed',
+            'snoozed': '⏰ Snoozed'
         };
         return labels[response] || response;
     }
