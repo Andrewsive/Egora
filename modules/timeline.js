@@ -131,8 +131,16 @@ class TimelineManager {
     // Render single event
     renderEvent(event) {
         const typeConfig = {
-            'context_detected': { label: 'Context Detected', class: 'detected', icon: '👁️' },
-            'reminder_triggered': { label: 'Reminder Triggered', class: 'triggered', icon: '🔔' },
+            'context_detected': {
+                label: 'Context Detected',
+                class: 'detected',
+                icon: '<svg class="icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>'
+            },
+            'reminder_triggered': {
+                label: 'Reminder Triggered',
+                class: 'triggered',
+                icon: '<svg class="icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>'
+            },
             'user_response': { label: 'User Response', class: 'response', icon: '<svg class="icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>' }
         };
 
