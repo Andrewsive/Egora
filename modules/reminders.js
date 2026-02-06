@@ -150,26 +150,37 @@ class RemindersManager {
             : 'Never triggered';
 
         return `
-            <div class="reminder-card" data-reminder-id="${reminder.id}">
-                <div class="reminder-header">
-                    <div class="reminder-title">${this.escapeHtml(reminder.title)}</div>
+            <div class="reminder-card" data-reminder-id="${reminder.id}" style="display: flex; flex-direction: column; height: 100%;">
+                <div class="reminder-header" style="justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                    <span class="priority-badge ${reminder.priority}" style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; padding: 4px 8px; border-radius: 4px; letter-spacing: 0.05em;">
+                        ${this.getPriorityLabel(reminder.priority)}
+                    </span>
                     <label class="reminder-toggle">
                         <input type="checkbox" ${reminder.enabled ? 'checked' : ''} data-action="toggle">
                         <span class="toggle-slider"></span>
                     </label>
                 </div>
-                <div class="reminder-context">${this.escapeHtml(reminder.context)}</div>
-                <div class="reminder-footer">
-                    <span class="priority-badge ${reminder.priority}">${this.getPriorityLabel(reminder.priority)}</span>
-                    <span style="color: var(--color-text-muted); font-size: 0.875rem;">${lastTriggered}</span>
+                
+                <div class="reminder-title" style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem;">${this.escapeHtml(reminder.title)}</div>
+                
+                <div class="reminder-context" style="display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: auto;">
+                    <svg class="icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-text-tertiary);"><map-pin class="feather feather-map-pin"></map-pin><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    ${this.escapeHtml(reminder.context)}
                 </div>
-                <div class="reminder-actions" style="margin-top: 1rem; display: flex; gap: 0.5rem;">
-                    <button class="btn btn-small btn-secondary btn-icon-only" data-action="edit" aria-label="Edit">
-                        <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> 
-                    </button>
-                    <button class="btn btn-small btn-secondary btn-icon-only" data-action="delete" style="color: var(--color-danger);" aria-label="Delete">
-                        <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> 
-                    </button>
+                
+                <div class="reminder-footer" style="padding-top: 1rem; margin-top: 1rem; border-top: 1px solid var(--color-bg-tertiary); display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: var(--color-text-tertiary); font-size: 0.75rem; text-transform: uppercase; font-weight: 500;">
+                        Last Triggered: ${lastTriggered}
+                    </span>
+                    
+                    <div class="reminder-actions" style="display: flex; gap: 0.25rem;">
+                        <button class="btn btn-small btn-text btn-icon-only" data-action="edit" aria-label="Edit" style="color: var(--color-text-tertiary);">
+                            <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> 
+                        </button>
+                        <button class="btn btn-small btn-text btn-icon-only" data-action="delete" style="color: var(--color-text-tertiary);" aria-label="Delete">
+                            <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> 
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
