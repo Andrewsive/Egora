@@ -234,7 +234,7 @@ class InsightsManager {
                 await window.remindersManager.loadReminders();
                 window.remindersManager.render();
 
-                window.showToast('✅ New reminder created');
+                window.showToast('<svg class="icon success" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:text-bottom;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> New reminder created');
 
             } else if (action.type === 'modify_reminder') {
                 // Modify existing reminder
@@ -244,7 +244,7 @@ class InsightsManager {
                     await window.storageManager.updateReminder(reminder);
                     await window.remindersManager.loadReminders();
                     window.remindersManager.render();
-                    window.showToast('Reminder updated');
+                    window.showToast('<svg class="icon success" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:text-bottom;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Reminder updated');
                 } else {
                     console.warn('Reminder not found, creating new one instead');
                     // If reminder doesn't exist, create a new one
@@ -260,7 +260,7 @@ class InsightsManager {
                     await window.storageManager.addReminder(newReminder);
                     await window.remindersManager.loadReminders();
                     window.remindersManager.render();
-                    window.showToast('✅ New reminder created');
+                    window.showToast('<svg class="icon success" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:text-bottom;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> New reminder created');
                 }
             }
 

@@ -284,7 +284,7 @@ class RemindersManager {
                 reminder.context = context;
                 reminder.priority = priority;
                 await window.storageManager.updateReminder(reminder);
-                window.showToast('Reminder updated');
+                window.showToast('<svg class="icon success" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:text-bottom;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Reminder updated');
             } else {
                 // Create new reminder
                 const reminder = {
@@ -297,7 +297,7 @@ class RemindersManager {
                     lastTriggered: null
                 };
                 await window.storageManager.addReminder(reminder);
-                window.showToast('Reminder created');
+                window.showToast('<svg class="icon success" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:text-bottom;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Reminder created');
             }
 
             // Refresh list

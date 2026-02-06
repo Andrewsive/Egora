@@ -230,7 +230,7 @@ class ContextReminderApp {
                 window.notificationManager.hidePermissionPrompt();
 
                 if (granted) {
-                    window.showToast('✅ Notifications enabled');
+                    window.showToast('<svg class="icon success" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:text-bottom;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Notifications enabled');
                     // Show a test notification
                     setTimeout(() => {
                         window.notificationManager.show('Notifications Enabled', {
@@ -279,9 +279,9 @@ class ContextReminderApp {
 
                 let msg = '';
                 switch (response) {
-                    case 'acknowledged': msg = '✅ Acknowledged'; break;
-                    case 'snoozed': msg = '⏰ Snoozed'; break;
-                    case 'dismissed': msg = '❌ Dismissed'; break;
+                    case 'acknowledged': msg = '<svg class="icon success" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:text-bottom;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Acknowledged'; break;
+                    case 'snoozed': msg = '<svg class="icon warning" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:text-bottom;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Snoozed'; break;
+                    case 'dismissed': msg = '<svg class="icon danger" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:text-bottom;"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg> Dismissed'; break;
                 }
                 window.showToast(msg);
                 this.currentReminderEventId = null;
@@ -301,7 +301,7 @@ class ContextReminderApp {
             const messageEl = document.getElementById('toastMessage');
 
             if (toast && messageEl) {
-                messageEl.textContent = message;
+                messageEl.innerHTML = message;
                 toast.classList.remove('hidden');
                 toast.classList.add('show');
 
@@ -339,7 +339,7 @@ class ContextReminderApp {
         document.getElementById('exportDataBtn')?.addEventListener('click', async () => {
             try {
                 await window.dataManager.exportData();
-                window.showToast('✅ Data exported successfully');
+                window.showToast('<svg class="icon success" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:text-bottom;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Data exported successfully');
             } catch (error) {
                 console.error('Export error:', error);
                 window.showToast('❌ Export failed: ' + error.message);
@@ -353,7 +353,7 @@ class ContextReminderApp {
 
             try {
                 const imported = await window.dataManager.importData(file);
-                window.showToast(`✅ Import successful: ${imported.reminders} reminders, ${imported.timeline} events, ${imported.insights} insights`);
+                window.showToast('<svg class="icon success" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:text-bottom;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Import successful: ' + imported.reminders + ' reminders, ' + imported.timeline + ' events, ' + imported.insights + ' insights');
 
                 // Refresh all views using correct method names
                 await window.timelineManager.loadEvents();
@@ -365,13 +365,13 @@ class ContextReminderApp {
                 window.insightsManager.updateBadge();
 
                 closeModal();
+
+                // Reset input
+                e.target.value = '';
             } catch (error) {
                 console.error('Import error:', error);
                 window.showToast('Import failed: ' + error.message);
             }
-
-            // Reset input
-            e.target.value = '';
         });
 
         // Clear all data
@@ -386,7 +386,7 @@ class ContextReminderApp {
 
             try {
                 await window.dataManager.clearAllData();
-                window.showToast('All data cleared');
+                window.showToast('<svg class="icon success" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:text-bottom;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> All data cleared');
 
                 // Refresh all views using correct method names
                 await window.timelineManager.loadEvents();
