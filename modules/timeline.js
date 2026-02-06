@@ -133,7 +133,7 @@ class TimelineManager {
         const typeConfig = {
             'context_detected': { label: 'Context Detected', class: 'detected', icon: '👁️' },
             'reminder_triggered': { label: 'Reminder Triggered', class: 'triggered', icon: '🔔' },
-            'user_response': { label: 'User Response', class: 'response', icon: '✅' }
+            'user_response': { label: 'User Response', class: 'response', icon: '<svg class="icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>' }
         };
 
         const config = typeConfig[event.type] || typeConfig['context_detected'];
@@ -235,9 +235,9 @@ class TimelineManager {
     // Get user response label
     getUserResponseLabel(response) {
         const labels = {
-            'acknowledged': '✅ Acknowledged',
-            'dismissed': '❌ Dismissed',
-            'snoozed': '⏰ Snoozed'
+            'acknowledged': '<svg class="icon success" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Acknowledged',
+            'snoozed': '<svg class="icon warning" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Snoozed',
+            'dismissed': '<svg class="icon danger" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg> Dismissed'
         };
         return labels[response] || response;
     }

@@ -204,7 +204,13 @@ class WebSocketManager {
                         title: 'New Pattern Found',
                         description: this.getRandomInsight(),
                         confidence: 0.8 + Math.random() * 0.15,
-                        basedOnEvents: []
+                        basedOnEvents: [],
+                        suggestedAction: {
+                            type: 'create_reminder',
+                            title: 'Suggested Reminder',
+                            context: 'Automatically generated context based on pattern',
+                            priority: 'medium'
+                        }
                     }
                 });
             }

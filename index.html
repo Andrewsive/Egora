@@ -199,7 +199,12 @@
                             <div class="setting-desc">Export all reminders, timeline, and insights as JSON file</div>
                         </div>
                         <button class="btn btn-primary" id="exportDataBtn">
-                            📥 Export
+                            <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor"
+                                stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg> Export
                         </button>
                     </div>
 
@@ -212,7 +217,12 @@
                             <input type="file" id="importDataInput" accept=".json" style="display: none;">
                             <button class="btn btn-secondary"
                                 onclick="document.getElementById('importDataInput').click()">
-                                📤 Import
+                                <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor"
+                                    stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg> Import
                             </button>
                         </div>
                     </div>
@@ -263,13 +273,26 @@
 
                 <div class="reminder-actions">
                     <button class="btn btn-primary btn-large" id="ackReminderBtn">
-                        ✅ Acknowledge
+                        <svg class="icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                            stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg> Acknowledge
                     </button>
                     <button class="btn btn-warning btn-large" id="snoozeReminderBtn">
-                        ⏰ Snooze
+                        <svg class="icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                            stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg> Snooze
                     </button>
                     <button class="btn btn-danger btn-large" id="dismissReminderBtn">
-                        ❌ Dismiss
+                        <svg class="icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                            stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg> Dismiss
                     </button>
                 </div>
             </div>

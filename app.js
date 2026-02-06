@@ -367,7 +367,7 @@ class ContextReminderApp {
                 closeModal();
             } catch (error) {
                 console.error('Import error:', error);
-                window.showToast('❌ Import failed: ' + error.message);
+                window.showToast('Import failed: ' + error.message);
             }
 
             // Reset input
@@ -386,7 +386,7 @@ class ContextReminderApp {
 
             try {
                 await window.dataManager.clearAllData();
-                window.showToast('✅ All data cleared');
+                window.showToast('All data cleared');
 
                 // Refresh all views using correct method names
                 await window.timelineManager.loadEvents();

@@ -160,10 +160,10 @@ class InsightsManager {
                 </div>
                 <div class="insight-actions">
                     <button class="btn btn-primary" data-action="accept">
-                        ✅ Accept Suggestion
+                        <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Accept Suggestion
                     </button>
                     <button class="btn btn-secondary" data-action="dismiss">
-                        ❌ Dismiss
+                        <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Dismiss
                     </button>
                 </div>
             </div>
@@ -244,7 +244,7 @@ class InsightsManager {
                     await window.storageManager.updateReminder(reminder);
                     await window.remindersManager.loadReminders();
                     window.remindersManager.render();
-                    window.showToast('✅ Reminder updated');
+                    window.showToast('Reminder updated');
                 } else {
                     console.warn('Reminder not found, creating new one instead');
                     // If reminder doesn't exist, create a new one
