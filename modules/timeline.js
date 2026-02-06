@@ -282,11 +282,13 @@ class TimelineManager {
             ${event.aiConfidence ? `
                 <div style="margin-bottom: 1rem;">
                     <div style="font-weight: 600; margin-bottom: 0.5rem;">AI Confidence</div>
-                    <div class="confidence-bar" style="margin-bottom: 0.5rem;">
-                        <div class="confidence-fill" style="width: ${event.aiConfidence * 100}%"></div>
-                    </div>
-                    <div style="color: var(--color-text-secondary); font-size: 0.875rem;">
-                        ${(event.aiConfidence * 100).toFixed(1)}%
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div class="confidence-bar" style="flex: 1; margin-bottom: 0; min-height: 8px;">
+                            <div class="confidence-fill" style="width: ${event.aiConfidence * 100}%"></div>
+                        </div>
+                        <div style="color: var(--color-text-secondary); font-size: 0.875rem; font-weight: 500; min-width: 40px; text-align: right;">
+                            ${(event.aiConfidence * 100).toFixed(0)}%
+                        </div>
                     </div>
                 </div>
             ` : ''}

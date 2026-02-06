@@ -147,15 +147,14 @@ class InsightsManager {
                     </div>
                 </div>
                 <p class="insight-description">${this.escapeHtml(insight.description)}</p>
-                <div style="margin-bottom: 1rem;">
-                    <div style="font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0.25rem;">
-                        AI Confidence
-                    </div>
-                    <div class="confidence-bar">
-                        <div class="confidence-fill" style="width: ${insight.confidence * 100}%"></div>
-                    </div>
-                    <div style="font-size: 0.875rem; color: var(--color-text-secondary); margin-top: 0.25rem;">
-                        ${(insight.confidence * 100).toFixed(0)}%
+                <div style="margin-bottom: 1rem; margin-top: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div class="confidence-bar" style="flex: 1; margin-bottom: 0; min-height: 8px;">
+                            <div class="confidence-fill" style="width: ${insight.confidence * 100}%"></div>
+                        </div>
+                        <div style="color: var(--color-text-secondary); font-size: 0.875rem; font-weight: 500; min-width: 100px; text-align: right;">
+                            Confidence ${(insight.confidence * 100).toFixed(0)}%
+                        </div>
                     </div>
                 </div>
                 <div class="insight-actions">
