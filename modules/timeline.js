@@ -221,13 +221,14 @@ class TimelineManager {
         const isToday = date.toDateString() === now.toDateString();
 
         if (isToday) {
-            return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+            return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
         } else {
-            return date.toLocaleString('zh-CN', {
+            return date.toLocaleString('en-US', {
                 month: 'short',
                 day: 'numeric',
                 hour: '2-digit',
-                minute: '2-digit'
+                minute: '2-digit',
+                hour12: false
             });
         }
     }
