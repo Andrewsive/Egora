@@ -1200,6 +1200,7 @@ select.form-input {
 .mb-md {
     margin-bottom: var(--space-md);
 }
+
 /* Modal Container - Main content box within modal */
 .modal-container {
     background: var(--color-bg-secondary);
@@ -1250,3 +1251,10 @@ select.form-input {
     color: var(--color-text-secondary);
 }
 
+
+/* Button Icons */
+.btn svg.icon {
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-bottom: 2px;
+}
