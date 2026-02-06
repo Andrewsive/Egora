@@ -473,9 +473,7 @@ body {
     margin-bottom: var(--space-sm);
 }
 
-.reminder-context::before {
-    content: '💭 ';
-}
+/* content: '💭 ' - REMOVED */
 
 .reminder-footer {
     display: flex;
