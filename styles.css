@@ -1259,6 +1259,20 @@ select.form-input {
     margin-bottom: 2px;
 }
 
+.btn-icon-only {
+    padding: var(--space-sm);
+    justify-content: center;
+    width: 2.5rem;
+    /* Fixed width for consistency */
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-icon-only svg.icon {
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
 /* Modern Search Bar Styles */
 .search-bar {
     margin-bottom: var(--space-md);
